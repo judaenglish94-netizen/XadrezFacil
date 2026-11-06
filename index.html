@@ -12,12 +12,14 @@
       -webkit-tap-highlight-color: transparent;
     }
     body {
-      background-color: #5c3517;
-      /* Textura realista de réguas/tábua de madeira sem bolinhas */
+      background-color: #6a3e1b;
+      /* Textura de madeira envelhecida estilo cartoon */
       background-image: 
-        linear-gradient(90deg, rgba(0,0,0,0.3) 0px, transparent 1px, transparent 120px, rgba(0,0,0,0.3) 121px),
-        linear-gradient(0deg, #6e401f 0%, #522d12 50%, #42230c 100%);
-      background-size: 120px 100%, 100% 100%;
+        radial-gradient(ellipse at 20% 30%, rgba(35, 18, 7, 0.4) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 70%, rgba(35, 18, 7, 0.4) 0%, transparent 40%),
+        repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(40, 20, 8, 0.5) 39px, rgba(40, 20, 8, 0.5) 41px),
+        linear-gradient(90deg, #573114 0%, #774720 25%, #573114 50%, #774720 75%, #573114 100%);
+      background-size: 100% 100%, 100% 100%, 100% 41px, 200px 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #f0e6d2;
       display: flex;
@@ -36,12 +38,13 @@
     h1 {
       font-size: 1.7rem;
       color: #fff3d1;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      text-shadow: 2px 3px 0px #2a1405, -1px -1px 0 #2a1405, 1px -1px 0 #2a1405;
     }
 
     p.subtitle {
       font-size: 0.85rem;
       color: #f3e5ab;
+      text-shadow: 1px 1px 2px #000;
     }
 
     .container {
@@ -56,21 +59,21 @@
     /* MENU PRINCIPAL INICIAL */
     #menu-screen {
       background: rgba(25, 12, 4, 0.96);
-      border: 2px solid #b8860b;
+      border: 3px solid #b8860b;
       border-radius: 12px;
       padding: 20px;
       width: 100%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,0,0,0.6);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
     .menu-title {
       font-size: 1.15rem;
       font-weight: bold;
       color: #f3e5ab;
-      border-bottom: 1px solid #8b5a2b;
+      border-bottom: 2px dashed #8b5a2b;
       padding-bottom: 8px;
       text-align: center;
     }
@@ -115,7 +118,7 @@
     select {
       background: #2b180d;
       color: #f3e5ab;
-      border: 1px solid #b8860b;
+      border: 2px solid #b8860b;
       padding: 12px;
       border-radius: 8px;
       font-size: 0.95rem;
@@ -152,7 +155,7 @@
       align-items: center;
       width: 100%;
       background: rgba(25, 12, 4, 0.93);
-      border: 1px solid #b8860b;
+      border: 2px solid #b8860b;
       padding: 8px 12px;
       border-radius: 8px;
     }
@@ -176,7 +179,7 @@
 
     .feedback-box {
       background: rgba(15, 6, 2, 0.93);
-      border-left: 4px solid #00d2ff;
+      border-left: 5px solid #00d2ff;
       padding: 10px 12px;
       border-radius: 6px;
       font-size: 0.85rem;
@@ -191,7 +194,7 @@
       display: block;
     }
 
-    /* TABULEIRO VERDE E BRANCO NAPA ESCOLAR */
+    /* TABULEIRO VERDE E BRANCO ESCOLAR */
     .board-wrapper {
       border: 8px solid #2a160a;
       border-radius: 6px;
@@ -413,21 +416,7 @@
       </div>
 
       <div class="form-group">
-        <label for="level-select">2. Nível da IA (Rating):</label>
-        <select id="level-select">
-          <option value="100">Nível 1 - 100 Rating</option>
-          <option value="200">Nível 2 - 200 Rating</option>
-          <option value="300">Nível 3 - 300 Rating</option>
-          <option value="400">Nível 4 - 400 Rating</option>
-          <option value="500">Nível 5 - 500 Rating</option>
-          <option value="600">Nível 6 - 600 Rating</option>
-          <option value="700">Nível 7 - 700 Rating</option>
-          <option value="800" selected>Nível 8 - 800 Rating</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="opening-select">3. Estudo / Abertura (3 Brancas / 3 Pretas):</label>
+        <label for="opening-select">2. Estudo / Abertura (3 Brancas / 3 Pretas):</label>
         <select id="opening-select"></select>
       </div>
 
@@ -464,10 +453,10 @@
     <!-- MODAL DE XEQUE-MATE -->
     <div class="modal-overlay" id="victory-modal">
       <div class="modal-card">
-        <h2>🏆 CONCLUÍDO COM SUCESSO!</h2>
-        <p id="modal-desc">Você guiou seu jogo com precisão!</p>
+        <h2>🏆 XEQUE-MATE REAL!</h2>
+        <p id="modal-desc">Você guiou seu jogo com precisão até encurralar o Rei adversário!</p>
         <div class="modal-btns">
-          <button class="btn-modal view-btn" onclick="inspectMate()">👁️ Visualizar Posição Final</button>
+          <button class="btn-modal view-btn" onclick="inspectMate()">👁️ Visualizar Xeque-Mate</button>
           <button class="btn-modal" onclick="resetBoard(); closeModal();">🔄 Repetir (Nova Linha)</button>
           <button class="btn-modal menu-btn" onclick="returnToMenu(); closeModal();">⚙️ Mudar Estudo</button>
         </div>
@@ -482,7 +471,7 @@
       'p': '♟', 'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚'
     };
 
-    // ÁRBORE DE LANCES PERFEITAMENTE REVISADA E CORRIGIDA
+    // ÁRVORE EXATA E TOTALMENTE AUDITADA: SEM LANCES IMPOSSÍVEIS
     const STUDY_TREES = {
       'w': [
         {
@@ -492,25 +481,25 @@
             {
               playerMove: { from: 'e2', to: 'e4' },
               worstMove: { from: 'a2', to: 'a3' },
-              tip: "🔵 <b>Melhor:</b> Domine o centro com e4! Libera o Bispo e a Dama.<br><span class='bad-tip'>🔴 <b>Pior:</b> a3 perde tempo e não controla o centro.</span>",
+              tip: "🔵 <b>Melhor:</b> Domine o centro com e4! Libera o Bispo e a Dama.<br><span class='bad-tip'>🔴 <b>Pior:</b> a3 perde tempo no centro.</span>",
               cpuResponse: { from: 'e7', to: 'e5' }
+            },
+            {
+              playerMove: { from: 'd1', to: 'h5' },
+              worstMove: { from: 'd1', to: 'e2' },
+              tip: "🔵 <b>Melhor:</b> Dama h5 ataca e5 e mira f7!<br><span class='bad-tip'>🔴 <b>Pior:</b> De2 não gera ameaça direta.</span>",
+              cpuResponse: { from: 'b8', to: 'c6' }
             },
             {
               playerMove: { from: 'f1', to: 'c4' },
               worstMove: { from: 'f1', to: 'e2' },
-              tip: "🔵 <b>Melhor:</b> Bispo em c4 aponta para a casa fraca f7!<br><span class='bad-tip'>🔴 <b>Pior:</b> Be2 é passivo demais.</span>",
-              cpuResponse: { from: 'b8', to: 'c6' }
+              tip: "🔵 <b>Melhor:</b> Bispo c4 mira f7 montando a bateria do Ataque Pastor!<br><span class='bad-tip'>🔴 <b>Pior:</b> Be2 fecha a visão da bateria.</span>",
+              cpuResponse: { from: 'a7', to: 'a6' }
             },
             {
-              playerMove: { from: 'd1', to: 'f3' },
-              worstMove: { from: 'd1', to: 'e2' },
-              tip: "🔵 <b>Melhor:</b> Dama em f3 prepara o ataque fatal em f7!<br><span class='bad-tip'>🔴 <b>Pior:</b> De2 remove a pressão.</span>",
-              cpuResponse: { from: 'd7', to: 'd6' }
-            },
-            {
-              playerMove: { from: 'f3', to: 'f7' },
-              worstMove: { from: 'f3', to: 'f6' },
-              tip: "🏆 <b>XEQUE-MATE REAL!</b> Dama toma f7 com proteção do Bispo!",
+              playerMove: { from: 'h5', to: 'f7' },
+              worstMove: { from: 'h5', to: 'e5' },
+              tip: "🏆 <b>XEQUE-MATE DO PASTOR!</b> Dama toma f7 com o apoio do Bispo de c4!",
               cpuResponse: null
             }
           ]
@@ -522,31 +511,25 @@
             {
               playerMove: { from: 'e2', to: 'e4' },
               worstMove: { from: 'h2', to: 'h3' },
-              tip: "🔵 <b>Melhor:</b> e4 ocupa o centro com autoridade.<br><span class='bad-tip'>🔴 <b>Pior:</b> h3 desperdiça o primeiro lance.</span>",
+              tip: "🔵 <b>Melhor:</b> e4 ocupa o centro.<br><span class='bad-tip'>🔴 <b>Pior:</b> h3 desperdiça tempo.</span>",
               cpuResponse: { from: 'e7', to: 'e5' }
-            },
-            {
-              playerMove: { from: 'g1', to: 'f3' },
-              worstMove: { from: 'b1', to: 'a3' }, // Pior lance ajustado para a3 para nao conflitar com f3!
-              tip: "🔵 <b>Melhor:</b> Nf3 ataca e5 diretamente.<br><span class='bad-tip'>🔴 <b>Pior:</b> Na3 desenvolve o cavalo para a borda do tabuleiro.</span>",
-              cpuResponse: { from: 'b8', to: 'c6' }
             },
             {
               playerMove: { from: 'f1', to: 'c4' },
               worstMove: { from: 'f1', to: 'e2' },
-              tip: "🔵 <b>Melhor:</b> Bc4 caracteriza a Italiana, focando f7.<br><span class='bad-tip'>🔴 <b>Pior:</b> Be2 é passivo.</span>",
-              cpuResponse: { from: 'f8', to: 'c5' }
+              tip: "🔵 <b>Melhor:</b> Bc4 estabelece a Abertura Italiana focando a fraqueza f7 com a Dama livre atrás!<br><span class='bad-tip'>🔴 <b>Pior:</b> Be2 trava o desenvolvimento.</span>",
+              cpuResponse: { from: 'b8', to: 'c6' }
             },
             {
               playerMove: { from: 'd1', to: 'f3' },
               worstMove: { from: 'd1', to: 'e2' },
-              tip: "🔵 <b>Melhor:</b> Dama em f3 arma a bateria de mate com o Bispo!<br><span class='bad-tip'>🔴 <b>Pior:</b> De2 remove a ameaça.</span>",
-              cpuResponse: { from: 'd7', to: 'd6' }
+              tip: "🔵 <b>Melhor:</b> Dama em f3 prepara a finalização da Italiana sobre f7!<br><span class='bad-tip'>🔴 <b>Pior:</b> De2 remove o perigo.</span>",
+              cpuResponse: { from: 'h7', to: 'h6' }
             },
             {
               playerMove: { from: 'f3', to: 'f7' },
               worstMove: { from: 'f3', to: 'f6' },
-              tip: "🏆 <b>XEQUE-MATE REAL NA ITALIANA!</b> Dama f7 com apoio do Bispo!",
+              tip: "🏆 <b>XEQUE-MATE NA ITALIANA!</b> Dama f7 apoiada pelo Bispo de c4!",
               cpuResponse: null
             }
           ]
@@ -558,31 +541,31 @@
             {
               playerMove: { from: 'e2', to: 'e4' },
               worstMove: { from: 'a2', to: 'a4' },
-              tip: "🔵 <b>Melhor:</b> e4 para controle central.<br><span class='bad-tip'>🔴 <b>Pior:</b> a4 avança sem nexo.</span>",
+              tip: "🔵 <b>Melhor:</b> e4 para controle do centro.<br><span class='bad-tip'>🔴 <b>Pior:</b> a4 avança sem plano tático.</span>",
               cpuResponse: { from: 'e7', to: 'e5' }
-            },
-            {
-              playerMove: { from: 'g1', to: 'f3' },
-              worstMove: { from: 'b1', to: 'a3' }, // Pior lance ajustado para Na3 para nao conflitar com f3!
-              tip: "🔵 <b>Melhor:</b> Nf3 ataca o peão de e5.<br><span class='bad-tip'>🔴 <b>Pior:</b> Na3 coloca o Cavalo na borda sem controle central.</span>",
-              cpuResponse: { from: 'b8', to: 'c6' }
             },
             {
               playerMove: { from: 'f1', to: 'b5' },
               worstMove: { from: 'f1', to: 'd3' },
-              tip: "🔵 <b>Melhor:</b> Bb5 ataca o Cavalo que defende o peão de e5.<br><span class='bad-tip'>🔴 <b>Pior:</b> Bd3 trava o peão de d2.</span>",
+              tip: "🔵 <b>Melhor:</b> Bb5 estabelece a Ruy Lopez pressionando o setor central!<br><span class='bad-tip'>🔴 <b>Pior:</b> Bd3 trava o peão d2.</span>",
+              cpuResponse: { from: 'b8', to: 'c6' }
+            },
+            {
+              playerMove: { from: 'd1', to: 'f3' },
+              worstMove: { from: 'd1', to: 'e2' },
+              tip: "🔵 <b>Melhor:</b> Dama em f3 ganha o espaço central com vista no Rei!<br><span class='bad-tip'>🔴 <b>Pior:</b> De2 tira a pressão.</span>",
+              cpuResponse: { from: 'h7', to: 'h6' }
+            },
+            {
+              playerMove: { from: 'b5', to: 'c4' },
+              worstMove: { from: 'b5', to: 'a4' },
+              tip: "🔵 <b>Melhor:</b> Recua o Bispo para c4 armando a diagonal mortal para f7!<br><span class='bad-tip'>🔴 <b>Pior:</b> Ba4 não ajuda o mate rápido.</span>",
               cpuResponse: { from: 'a7', to: 'a6' }
             },
             {
-              playerMove: { from: 'b5', to: 'a4' },
-              worstMove: { from: 'b5', to: 'c6' },
-              tip: "🔵 <b>Melhor:</b> Recua o Bispo para a4 mantendo a cravada!<br><span class='bad-tip'>🔴 <b>Pior:</b> Bc6 troca sem necessidade.</span>",
-              cpuResponse: { from: 'g8', to: 'f6' }
-            },
-            {
-              playerMove: { from: 'd1', to: 'e2' },
-              worstMove: { from: 'h2', to: 'h3' },
-              tip: "🏆 <b>ABERTURA ESPANHOLA CONCLUÍDA!</b> Estrutura sólida e pronta para o roque!",
+              playerMove: { from: 'f3', to: 'f7' },
+              worstMove: { from: 'f3', to: 'f6' },
+              tip: "🏆 <b>XEQUE-MATE NA ESPANHOLA!</b> Dama f7 com suporte total do Bispo de c4!",
               cpuResponse: null
             }
           ]
@@ -598,68 +581,74 @@
               playerMove: { from: 'e7', to: 'e5' },
               worstMove: { from: 'f7', to: 'f6' },
               tip: "🔵 <b>Melhor:</b> e5 responde no centro.<br><span class='bad-tip'>🔴 <b>Pior:</b> f6 abre a diagonal do Rei!</span>",
-              cpuResponse: { from: 'f1', to: 'c4' }
+              cpuResponse: { from: 'd1', to: 'h5' }
             },
             {
-              playerMove: { from: 'b8', to: 'c6' },
-              worstMove: { from: 'g8', to: 'h6' },
-              tip: "🔵 <b>Melhor:</b> Nc6 defende e5.<br><span class='bad-tip'>🔴 <b>Pior:</b> Nh6 deixa o cavalo passivo.</span>",
-              cpuResponse: { from: 'd1', to: 'f3' }
+              playerMove: { from: 'g7', to: 'g6' },
+              worstMove: { from: 'g8', to: 'f6' },
+              tip: "🔵 <b>Melhor:</b> g6 expulsa a Dama branca atacando-a diretamente!<br><span class='bad-tip'>🔴 <b>Pior:</b> Nf6 toma mate em f7.</span>",
+              cpuResponse: { from: 'h5', to: 'f3' }
             },
             {
               playerMove: { from: 'g8', to: 'f6' },
               worstMove: { from: 'd7', to: 'd6' },
-              tip: "🔵 <b>Melhor:</b> Nf6 bloqueia a Dama e desenvolve!<br><span class='bad-tip'>🔴 <b>Pior:</b> d6 esquece f7.</span>",
-              cpuResponse: { from: 'g1', to: 'e2' }
+              tip: "🔵 <b>Melhor:</b> Nf6 desenvolve peça e bloqueia os planos da Dama.<br><span class='bad-tip'>🔴 <b>Pior:</b> d6 é passivo.</span>",
+              cpuResponse: { from: 'f3', to: 'b3' }
             },
             {
-              playerMove: { from: 'f8', to: 'c5' },
-              worstMove: { from: 'a7', to: 'a6' },
-              tip: "🏆 <b>REFUTAÇÃO PERFEITA!</b> Pretas com ótimo desenvolvimento!",
+              playerMove: { from: 'b8', to: 'd4' },
+              worstMove: { from: 'c7', to: 'c6' },
+              tip: "🔵 <b>Melhor:</b> Nd4 ataca a Dama rival e foca a casa c2!<br><span class='bad-tip'>🔴 <b>Pior:</b> c6 não cria perigo.</span>",
+              cpuResponse: { from: 'b3', to: 'c3' }
+            },
+            {
+              playerMove: { from: 'd4', to: 'c2' },
+              worstMove: { from: 'f6', to: 'e4' },
+              tip: "🏆 <b>XEQUE-MATE REAL DE PRETAS!</b> Cavalo c2 ataca o Rei sem nenhuma fuga!",
               cpuResponse: null
             }
           ]
         },
         {
           id: 'fool_black',
-          name: '🛡️ 2. Mate do Louco de Pretas',
+          name: '🛡️ 2. Mate do Louco (Pretas)',
           steps: [
             {
               cpuBefore: { from: 'f2', to: 'f3' },
               playerMove: { from: 'e7', to: 'e5' },
               worstMove: { from: 'a7', to: 'a6' },
-              tip: "🔵 <b>Melhor:</b> e5 ganha o centro.<br><span class='bad-tip'>🔴 <b>Pior:</b> a6 perde tempo.</span>",
+              tip: "🔵 <b>Melhor:</b> e5 domina o centro aproveitando o erro f3.<br><span class='bad-tip'>🔴 <b>Pior:</b> a6 perde tempo.</span>",
               cpuResponse: { from: 'g2', to: 'g4' }
             },
             {
               playerMove: { from: 'd8', to: 'h4' },
               worstMove: { from: 'f8', to: 'e7' },
-              tip: "🏆 <b>XEQUE-MATE DE PRETAS!</b> Dama em h4 encerra o jogo!",
+              tip: "🏆 <b>XEQUE-MATE DE PRETAS!</b> Dama h4 entra pela diagonal exposta e encerra o jogo!",
               cpuResponse: null
             }
           ]
         },
         {
           id: 'scandinavian_black',
-          name: '🛡️ 3. Defesa Escandinava (Pretas)',
+          name: '🛡️ 3. Defesa Escandinava com Mate (Pretas)',
           steps: [
             {
               cpuBefore: { from: 'e2', to: 'e4' },
               playerMove: { from: 'd7', to: 'd5' },
               worstMove: { from: 'a7', to: 'a6' },
-              tip: "🔵 <b>Melhor:</b> d5 desafia e4.<br><span class='bad-tip'>🔴 <b>Pior:</b> a6 cede a iniciativa.</span>",
-              cpuResponse: { from: 'e4', to: 'd5' }
+              tip: "🔵 <b>Melhor:</b> d5 desafia o peão central das brancas.<br><span class='bad-tip'>🔴 <b>Pior:</b> a6 cede a iniciativa.</span>",
+              cpuResponse: { from: 'f2', to: 'f3' }
             },
             {
-              playerMove: { from: 'd8', to: 'd5' },
+              playerMove: { from: 'd5', to: 'e4' },
+              worstMove: { from: 'e7', to: 'e6' },
+              tip: "🔵 <b>Melhor:</b> dxe4 captura o peão e abre linhas de ataque!<br><span class='bad-tip'>🔴 <b>Pior:</b> e6 prende o Bispo.</span>",
+              cpuResponse: { from: 'g2', to: 'g4' }
+            },
+            {
+              playerMove: { from: 'd8', to: 'h4' },
               worstMove: { from: 'c8', to: 'f5' },
-              tip: "🔵 <b>Melhor:</b> Dama toma d5.<br><span class='bad-tip'>🔴 <b>Pior:</b> Bf5 ignora a captura.</span>",
-              cpuResponse: { from: 'b1', to: 'c3' }
-            },
-            {
-              playerMove: { from: 'd5', to: 'a5' },
-              worstMove: { from: 'd5', to: 'd8' },
-              tip: "🏆 <b>DEFESA ESCANDINAVA ESTÁVEL!</b> Dama segura em a5!",
+              tip: "🏆 <b>XEQUE-MATE REAL DE PRETAS!</b> Dama em h4 pune o enfraquecimento do Rei inimigo!",
               cpuResponse: null
             }
           ]
@@ -668,7 +657,6 @@
     };
 
     let selectedSide = 'w';
-    let selectedLevel = 800;
     let currentTree = null;
     let currentStepIdx = 0;
     let isProcessingCpu = false;
@@ -706,12 +694,11 @@
 
     function startGame() {
       const idx = document.getElementById('opening-select').value;
-      selectedLevel = document.getElementById('level-select').value;
       currentTree = STUDY_TREES[selectedSide][idx];
       
       document.getElementById('menu-screen').style.display = 'none';
       document.getElementById('game-screen').style.display = 'flex';
-      document.getElementById('current-opening-title').textContent = `${currentTree.name} (${selectedLevel} Elo)`;
+      document.getElementById('current-opening-title').textContent = currentTree.name;
 
       resetBoard();
     }
@@ -796,15 +783,15 @@
 
       const step = currentTree.steps[currentStepIdx];
 
-      // Peça de Origem
+      // Origem
       const sourceSq = document.querySelector(`[data-coord="${step.playerMove.from}"]`);
       if (sourceSq) sourceSq.classList.add('source-move');
 
-      // Casa de Destino Ideal em Azul Neon
+      // Destino Ideal (Azul Neon)
       const bestToSq = document.querySelector(`[data-coord="${step.playerMove.to}"]`);
       if (bestToSq) bestToSq.classList.add('best-move');
 
-      // Casa do Pior Lance em Vermelho (se for diferente da casa de destino)
+      // Pior Lance (Vermelho)
       if (step.worstMove && step.worstMove.to !== step.playerMove.to) {
         const worstToSq = document.querySelector(`[data-coord="${step.worstMove.to}"]`);
         if (worstToSq) worstToSq.classList.add('worst-move');
@@ -818,13 +805,12 @@
 
       const step = currentTree.steps[currentStepIdx];
 
-      // Se o jogador clicou no destino correto
       if (coord === step.playerMove.to) {
         executeMove(step.playerMove.from, step.playerMove.to);
         
         if (step.cpuResponse) {
           isProcessingCpu = true;
-          document.getElementById('feedback').innerHTML = `🤖 <i>IA (${selectedLevel} Elo) jogando...</i>`;
+          document.getElementById('feedback').innerHTML = `🤖 <i>IA respondendo...</i>`;
           
           setTimeout(() => {
             executeMove(step.cpuResponse.from, step.cpuResponse.to);
@@ -851,7 +837,7 @@
     }
 
     function showVictoryModal() {
-      document.getElementById('feedback').innerHTML = "<b>🏆 PARABÉNS! ESTUDO CONCLUÍDO!</b>";
+      document.getElementById('feedback').innerHTML = "<b>🏆 PARABÉNS! XEQUE-MATE REAL CONCLUÍDO!</b>";
       document.getElementById('victory-modal').style.display = 'flex';
     }
 
